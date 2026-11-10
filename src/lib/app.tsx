@@ -47,13 +47,13 @@ export const isStudent = (r: Role) => r === "student" || r === "org";
 
 /* ---------- UI: sheets + toast ---------- */
 type Sheet = { kind: "venue"; id: string } | { kind: "signin"; path: "student" | "alumni" } | { kind: "inbox" } | null;
-type UiCtx = { sheet: Sheet; open: (s: Sheet) => void; close: () => void; toast: (title: string, body?: string) => void; toastMsg: { title: string; body?: string } | null };
+type UiCtx = { sheet: Sheet; open: (s: Sheet) => void; close: () => void; toast: (title: string, body?: string | undefined) => void; toastMsg: { title: string; body?: string | undefined } | null };
 const Ui = createContext<UiCtx>(null as never);
 export function UiProvider({ children }: { children: ReactNode }) {
   const [sheet, setSheet] = useState<Sheet>(null);
-  const [toastMsg, setToast] = useState<{ title: string; body?: string } | null>(null);
+  const [toastMsg, setToast] = useState<{ title: string; body?: string | undefined } | null>(null);
   const t = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const toast = useCallback((title: string, body?: string) => { setToast({ title, body }); clearTimeout(t.current); t.current = setTimeout(() => setToast(null), 3800); }, []);
+  const toast = useCallback((title: string, body?: string | undefined) => { setToast({ title, body }); clearTimeout(t.current); t.current = setTimeout(() => setToast(null), 3800); }, []);
   const value = useMemo(() => ({ sheet, open: setSheet, close: () => setSheet(null), toast, toastMsg }), [sheet, toast, toastMsg]);
   return <Ui.Provider value={value}>{children}</Ui.Provider>;
 }
@@ -72,7 +72,8 @@ export function useVenues() {
   });
 }
 
-type ItemRow = Record<string, any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ItemRow = any;
 const toItem = (r: ItemRow, teaser = false): Item => ({
   id: r.id, kind: r.kind, title: r.title ?? "Student-only listing", venue_id: r.venue_id ?? null, location: r.location ?? "Location hidden",
   lat: r.lat, lng: r.lng, start: new Date(r.start_at), end: new Date(r.end_at),

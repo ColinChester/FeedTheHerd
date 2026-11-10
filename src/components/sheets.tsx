@@ -51,7 +51,7 @@ function VenueSheet({ id }: { id: string }) {
         <FavButton id={v.id} name={v.name} /><Close /></div>
       <div className="score">
         <div><b className="num">{Number(v.cost) ? `$${Number(v.cost)}` : "Free"}</b><small>{Number(v.cost) ? (v.unit === "basket" ? "avg. 12-item student basket" : "avg. meal") : "no cost"}</small></div>
-        <div><b className={open ? "open" : "closed"}>{open ? "Open" : "Closed"}</b><small>{hoursText(v.hours[today])} today</small></div>
+        <div><b className={open ? "open" : "closed"}>{open ? "Open" : "Closed"}</b><small>{hoursText(v.hours[today] ?? null)} today</small></div>
       </div>
       <VenueBadges v={v} />
       <div className="box"><h3>Getting there from main campus</h3>
@@ -59,7 +59,7 @@ function VenueSheet({ id }: { id: string }) {
         {st.length ? st.map((s) => <div key={s.id} className="kv num"><span>Metro</span><span>{s.name} ({s.lines}) · {mi(s.d)} away</span></div>) : <div className="kv"><span>Metro</span><span>None within 0.6 mi</span></div>}
         <div className="kv"><span>Bus</span><span>{bus.length ? bus.map((b) => b.name).join(", ") : "No nearby corridor"}</span></div>
       </div>
-      <div className="box"><h3>Hours</h3><table className="hours"><tbody>{[1, 2, 3, 4, 5, 6, 0].map((dd) => <tr key={dd} className={dd === today ? "today" : ""}><td>{DAYN[dd]}</td><td>{hoursText(v.hours[dd])}</td></tr>)}</tbody></table></div>
+      <div className="box"><h3>Hours</h3><table className="hours"><tbody>{[1, 2, 3, 4, 5, 6, 0].map((dd) => <tr key={dd} className={dd === today ? "today" : ""}><td>{DAYN[dd]}</td><td>{hoursText(v.hours[dd] ?? null)}</td></tr>)}</tbody></table></div>
       {deals.length > 0 && <div className="box"><h3>Active deals here</h3>{deals.map((i) => <div key={i.id} className="mini"><span>{i.title}</span><span className="sub">{i.recurring ?? ""}</span></div>)}</div>}
       <div className="box"><h3>Price &amp; value reviews</h3>
         <div className="score"><div><b className="num">{avg("price")}</b><small>Price accuracy / 5</small></div><div><b className="num">{avg("value")}</b><small>Portion value / 5</small></div></div>

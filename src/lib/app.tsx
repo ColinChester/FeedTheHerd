@@ -155,3 +155,15 @@ export function useNotifications() {
     },
   });
 }
+
+/* ---------- Filter state shared across tabs ---------- */
+import { DIR_DEFAULT, WEEK_DEFAULT, type DirFilters, type WeekFilters } from "./haf";
+type FCtx = { dir: DirFilters; setDir: (p: Partial<DirFilters>) => void; week: WeekFilters; setWeek: (p: Partial<WeekFilters>) => void };
+const Filters = createContext<FCtx>(null as never);
+export function FiltersProvider({ children }: { children: ReactNode }) {
+  const [dir, sd] = useState(DIR_DEFAULT);
+  const [week, sw] = useState(WEEK_DEFAULT);
+  const value = useMemo(() => ({ dir, week, setDir: (p: Partial<DirFilters>) => sd((d) => ({ ...d, ...p })), setWeek: (p: Partial<WeekFilters>) => sw((w) => ({ ...w, ...p })) }), [dir, week]);
+  return <Filters.Provider value={value}>{children}</Filters.Provider>;
+}
+export const useFilters = () => useContext(Filters);

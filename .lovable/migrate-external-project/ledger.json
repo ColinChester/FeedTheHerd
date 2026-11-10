@@ -1,0 +1,10 @@
+[
+ {"capability":"code: 5 screens, sheets, filters, copy","source":"index.html","outcome":"migrate","status":"done","next_action":"none"},
+ {"capability":"schema + sample records (18 venues, 14 feed items, 7 reviews)","source":"in-memory sample data","outcome":"migrate","status":"done","next_action":"none"},
+ {"capability":"auth: student @bison.howard.edu email code","source":"mocked OTP","outcome":"migrate","status":"implemented, unverified","next_action":"sign in with a real Howard address to confirm"},
+ {"capability":"auth: alumni Howard ID + grad year","source":"mocked","outcome":"migrate","status":"self-declared","next_action":"needs a Howard records check to truly verify alumni"},
+ {"capability":"authorization: role rules R25 R26 R36 R39 R40","source":"client JS","outcome":"migrate","status":"verified for visitors","next_action":"check signed-in roles"},
+ {"capability":"notifications","source":"in-memory","outcome":"migrate","status":"in-app inbox","next_action":"none"},
+ {"capability":"RTM trace panel, role quick-switch, simulate/reset demo","source":"prototype only","outcome":"dropped","status":"accepted","next_action":"none"},
+ {"capability":"user records","source":"none (prototype had no users)","outcome":"n/a","status":"n/a","next_action":"none"}
+]

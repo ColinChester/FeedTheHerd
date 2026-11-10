@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Business rules (filters, visibility, archiving) live as pure functions in `src/lib/haf.ts` with tests in `src/lib/haf.test.ts`; UI only calls them, so rules stay testable.
+- Roles (student/org/alumni) are granted only by database triggers on confirmed email in `user_roles`; access is enforced by RLS, never by client role state.
+- Student-only feed items are hidden by RLS; visitors see them through the `item_teasers()` function, which returns no titles or details.

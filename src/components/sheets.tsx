@@ -63,7 +63,7 @@ function VenueSheet({ id }: { id: string }) {
       {deals.length > 0 && <div className="box"><h3>Active deals here</h3>{deals.map((i) => <div key={i.id} className="mini"><span>{i.title}</span><span className="sub">{i.recurring ?? ""}</span></div>)}</div>}
       <div className="box"><h3>Price &amp; value reviews</h3>
         <div className="score"><div><b className="num">{avg("price")}</b><small>Price accuracy / 5</small></div><div><b className="num">{avg("value")}</b><small>Portion value / 5</small></div></div>
-        {revs.length ? revs.map((r) => <div key={r.id} className="review"><b>{"★".repeat(r.price)}</b> price · <b>{"★".repeat(r.value)}</b> value<br />{r.body}<br /><span className="sub">{r.who}{r.user_id === userId ? " · you" : ""} · verified Howard</span></div>) : <p className="sub">No reviews yet.</p>}
+        {revs.length ? revs.map((r) => <div key={r.id} className="review"><b>{"★".repeat(r.price)}</b> price · <b>{"★".repeat(r.value)}</b> value<br />{r.body}<br /><span className="sub">{r.who}{userId && r.user_id === userId ? " · you" : ""} · verified Howard</span></div>) : <p className="sub">No reviews yet.</p>}
       </div>
       {isVerified(role) ? (
         <form className="box" onSubmit={submit}><h3>Write a review</h3>{starRow("p", "Price accuracy")}{starRow("v", "Portion value")}

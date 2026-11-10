@@ -212,7 +212,7 @@
   .switch input { width: 42px; height: 24px; accent-color: var(--red); }
   .mini { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; padding: 8px 0; border-top: 1px solid var(--line); }
   .mini:first-of-type { border-top: 0; }
-  .rolepill { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 99px; background: var(--navy); color: var(--surface); }
+  .rolepill { align-self: flex-start; display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 99px; background: var(--navy); color: var(--surface); }
   .rolepill.visitor { background: var(--chip); color: var(--muted-ink); }
   .rolepill.alumni { background: var(--good); color: var(--surface); }
   .samplenote { font-size: 12px; color: var(--muted-ink); text-align: center; }

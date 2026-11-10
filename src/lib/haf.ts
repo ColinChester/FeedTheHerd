@@ -35,10 +35,10 @@ export const STATIONS = [
   { id: "mtvernon", name: "Mt Vernon Sq", lines: "Green · Yellow", lat: 38.9055, lng: -77.0219 },
 ];
 export const CORRIDORS = [
-  { id: "georgia", name: "Georgia Ave buses", pts: [[38.903, -77.0219], [38.913, -77.0219], [38.922, -77.0217], [38.93, -77.0228], [38.94, -77.0244]] },
-  { id: "ufla", name: "U St / Florida Ave buses", pts: [[38.917, -77.04], [38.917, -77.032], [38.917, -77.026], [38.9195, -77.022], [38.92, -77.015]] },
-  { id: "fourteenth", name: "14th St buses", pts: [[38.904, -77.032], [38.912, -77.032], [38.92, -77.0322], [38.928, -77.0328], [38.936, -77.033]] },
-  { id: "sixth", name: "6th St / Howard Pl shuttle", pts: [[38.9135, -77.02], [38.918, -77.02], [38.9225, -77.0199], [38.926, -77.0195]] },
+  { id: "georgia", name: "Georgia Ave buses", pts: <[number, number][]>[[38.903, -77.0219], [38.913, -77.0219], [38.922, -77.0217], [38.93, -77.0228], [38.94, -77.0244]] },
+  { id: "ufla", name: "U St / Florida Ave buses", pts: <[number, number][]>[[38.917, -77.04], [38.917, -77.032], [38.917, -77.026], [38.9195, -77.022], [38.92, -77.015]] },
+  { id: "fourteenth", name: "14th St buses", pts: <[number, number][]>[[38.904, -77.032], [38.912, -77.032], [38.92, -77.0322], [38.928, -77.0328], [38.936, -77.033]] },
+  { id: "sixth", name: "6th St / Howard Pl shuttle", pts: <[number, number][]>[[38.9135, -77.02], [38.918, -77.02], [38.9225, -77.0199], [38.926, -77.0195]] },
 ];
 export const corridorDist = (c: (typeof CORRIDORS)[number], p: Pt) => Math.min(...c.pts.map(([lat, lng]) => hav({ lat, lng }, p)));
 export const stationsNear = (p: Pt) => STATIONS.map((s) => ({ ...s, d: hav(s, p) })).filter((s) => s.d <= 0.6).sort((a, b) => a.d - b.d);
@@ -113,7 +113,7 @@ export function whenInfo(i: Item, now = new Date()): { live: boolean; text: stri
 }
 const WINDOWS: Record<string, [number, number]> = { morning: [5, 12], afternoon: [12, 17], evening: [17, 21], late: [21, 29] };
 export function overlapsWindow(i: Item, w: string) {
-  let [a, b] = itemRange(i); if (b <= a) b += 24; const [x, y] = WINDOWS[w];
+  let [a, b] = itemRange(i); if (b <= a) b += 24; const [x, y] = WINDOWS[w] ?? [0, 24];
   return (a < y && b > x) || (a + 24 < y && b + 24 > x) || (a - 24 < y && b - 24 > x);
 }
 export const isRestricted = (i: Pick<Item, "student_only" | "id_req">) => i.student_only || i.id_req === "only";

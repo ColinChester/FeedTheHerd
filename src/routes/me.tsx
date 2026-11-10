@@ -27,7 +27,7 @@ function Me() {
 
   async function setNotif(k: "notify_deals" | "notify_events", v: boolean) {
     if (!userId) return open({ kind: "signin", path: "student" });
-    await supabase.from("profiles").update({ [k]: v }).eq("user_id", userId);
+    await supabase.from("profiles").update(k === "notify_deals" ? { notify_deals: v } : { notify_events: v }).eq("user_id", userId);
     refresh(); toast(`${k === "notify_deals" ? "Deal" : "Event"} alerts ${v ? "on" : "off"}`);
   }
   async function signOut() { await supabase.auth.signOut(); qc.clear(); toast("Signed out"); }

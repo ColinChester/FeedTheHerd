@@ -41,7 +41,7 @@ function Week() {
           <Chip on={f.archived} onClick={() => setWeek({ archived: !f.archived })}>Show archived</Chip>
         </div>
         <div className="row"><span className="lbl">Student ID</span><Seg value={f.id} onChange={(v) => setWeek({ id: v })} options={[["any", "Any"], ["required", "Required"], ["none", "Not required"]]} /></div>
-        <div className="row"><span className="lbl">Time</span><div className="chips">{[["any", "Any time"], ["morning", "Morning"], ["afternoon", "Afternoon"], ["evening", "Evening"], ["late", "Late night"]].map(([k, l]) => <Chip key={k} on={f.time === k} onClick={() => setWeek({ time: k })}>{l}</Chip>)}</div></div>
+        <div className="row"><span className="lbl">Time</span><div className="chips">{([["any", "Any time"], ["morning", "Morning"], ["afternoon", "Afternoon"], ["evening", "Evening"], ["late", "Late night"]] as [string, string][]).map(([k, l]) => <Chip key={k} on={f.time === k} onClick={() => setWeek({ time: k })}>{l}</Chip>)}</div></div>
         <div className="row"><span className="lbl">Near</span>
           <select className="input" style={{ flex: 1 }} value={f.near} onChange={(e) => setWeek({ near: e.target.value })} aria-label="Near a Metro station or bus route">
             <option value="">Anywhere</option>

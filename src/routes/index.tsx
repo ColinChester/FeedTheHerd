@@ -26,7 +26,7 @@ function Directory() {
       <div className="filters">
         <div className="row"><span className="lbl">Radius</span><input type="range" min="0.25" max="2" step="0.25" value={f.radius} onChange={(e) => setDir({ radius: +e.target.value })} aria-label="Search radius in miles" /><b className="num" style={{ minWidth: 52, textAlign: "right" }}>{f.radius} mi</b></div>
         <div className="chips">
-          {[["all", "All"], ["grocery", "Grocery"], ["restaurant", "Restaurants"], ["market", "Markets"], ...(role !== "alumni" ? [["pantry", "Pantries"]] : []), ["fridge", "Fridges"]].map(([k, l]) => <Chip key={k} on={f.type === k} onClick={() => setDir({ type: k })}>{l}</Chip>)}
+          {([["all", "All"], ["grocery", "Grocery"], ["restaurant", "Restaurants"], ["market", "Markets"], ...(role !== "alumni" ? [["pantry", "Pantries"]] : []), ["fridge", "Fridges"]] as [string, string][]).map(([k, l]) => <Chip key={k} on={f.type === k} onClick={() => setDir({ type: k })}>{l}</Chip>)}
         </div>
         <div className="chips">
           {([["ebt", "EBT/SNAP"], ["bison", "Bison Bucks"], ["halal", "Halal"], ["veg", "Vegetarian"], ["late", "Late night"], ["open", "Open now"]] as const).map(([k, l]) => <Chip key={k} on={f[k]} onClick={() => setDir({ [k]: !f[k] })}>{l}</Chip>)}

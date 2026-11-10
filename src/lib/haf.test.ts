@@ -36,6 +36,6 @@ describe("Howard rules", () => {
   it("favorited venues' deals pin to the top (R34)", () => {
     const a = item({ id: "a", start: new Date(2026, 10, 10, 1) }), b = item({ id: "b", venue_id: "fav", start: new Date(2026, 10, 11, 1) });
     const out = feedItems([a, b], WEEK_DEFAULT, "student", new Set(["fav"]), {}, now);
-    expect(out[0].id).toBe("b");
+    expect(out[0]?.id).toBe("b");
   });
 });
